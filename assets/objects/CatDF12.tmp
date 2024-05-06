@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3svgf4pr2n3m"]
+
+[ext_resource type="Script" path="res://scripts/Catcher.gd" id="1_iv65j"]
+[ext_resource type="Script" path="res://scripts/Threads.gd" id="2_qifao"]
+
+[node name="Catcher" type="Node2D"]
+script = ExtResource("1_iv65j")
+
+[node name="Threads" type="Node2D" parent="."]
+script = ExtResource("2_qifao")
+
+[node name="Ring" type="Line2D" parent="."]
