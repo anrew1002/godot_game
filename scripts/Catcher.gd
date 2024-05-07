@@ -3,7 +3,8 @@ extends Node2D
 # Создание сокетов и линии окружности
 
 @onready var socket = preload("uid://bb117svyyitnf")
-
+@onready var threads = $"Threads"
+var cur_index_point:int
 var counter = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,7 +24,7 @@ func _draw():
 func draw_circle_arc(center, radius, _color):
 	var angle_from = 0
 	var angle_to = 360
-	var nb_points = 12
+	var nb_points = 6
 	var points_arc = PackedVector2Array()
 	counter +=1
 	
@@ -33,6 +34,7 @@ func draw_circle_arc(center, radius, _color):
 
 	for index_point in range(nb_points+1):
 		#draw_circle(points_arc[index_point], 10, color)
+		cur_index_point = index_point
 		$"Ring".add_point(points_arc[index_point],-1)
 		var instance = socket.instantiate()
 		instance.ID = index_point
@@ -42,4 +44,12 @@ func draw_circle_arc(center, radius, _color):
 
 
 func _on_back_pressed():
-	$"Threads".back()
+	threads.back()
+
+
+func _on_threads_line_created(s_pos):
+	var instance = socket.instantiate()
+	instance.ID = cur_index_point
+	cur_index_point+=1
+	sockets.append(instance)
+	instance.global_position = s_pos
