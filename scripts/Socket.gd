@@ -17,5 +17,5 @@ func _on_texture_button_button_down():
 
 
 func _on_texture_button_left_click():
-	# print(ID,get_global_rect().get_area())
+	print(ID,get_global_rect().get_area())
 	mouseover = true

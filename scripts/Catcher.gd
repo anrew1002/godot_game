@@ -3,14 +3,15 @@ extends Node2D
 # Создание сокетов и линии окружности
 
 @onready var socket = preload("uid://bb117svyyitnf")
-@onready var threads = $"Threads"
+@onready var threads: Node2D = $"Threads"
+@onready var sockets: Node2D = $"Sockets"
 var cur_index_point:int
 var counter = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-var sockets = []
+# var sockets = []
 	
 func _draw():
 	
@@ -38,18 +39,28 @@ func draw_circle_arc(center, radius, _color):
 		$"Ring".add_point(points_arc[index_point],-1)
 		var instance = socket.instantiate()
 		instance.ID = index_point
-		sockets.append(instance)
+		# sockets.append(instance)
 		instance.global_position = points_arc[index_point]
-		$"Sockets".add_child(instance)
+		sockets.add_child(instance)
 
 
 func _on_back_pressed():
 	threads.back()
 
 
-func _on_threads_line_created(s_pos):
+func _on_threads_line_created(s_pos, thr):
+	
+	for sck in sockets.get_children():
+		if is_equal_approx(s_pos[0],sck.global_position[0]) and is_equal_approx(s_pos[1],sck.global_position[1]):
+			return
+	print("Childs: " + var_to_str(sockets.get_child_count()))
 	var instance = socket.instantiate()
 	instance.ID = cur_index_point
 	cur_index_point+=1
-	sockets.append(instance)
-	instance.global_position = s_pos
+	sockets.add_child(instance)
+	var loc_pos = thr.to_global(s_pos)
+	instance.position =  loc_pos - Vector2(16,16)
+	instance.z_index = 10
+	pass
+
+

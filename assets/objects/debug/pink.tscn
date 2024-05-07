@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://caocptf86b8qs"]
+
+[ext_resource type="Texture2D" uid="uid://qtcvir444mle" path="res://assets/textures/pink.png" id="1_wmoqn"]
+
+[node name="Pink" type="Node2D"]
+position = Vector2(-20, -20)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("1_wmoqn")
+expand_mode = 1
