@@ -1,0 +1,174 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3qalls13d87f"]
+
+[ext_resource type="Texture2D" uid="uid://dn84h330f0iym" path="res://assets/textures/spotlight_3.png" id="2_jxae6"]
+[ext_resource type="Texture2D" uid="uid://5v3gve7ilx1o" path="res://icon.svg" id="3_ng6j1"]
+[ext_resource type="Script" path="res://scripts/VBoxContainer.gd" id="3_usyws"]
+
+[sub_resource type="Shader" id="Shader_ocvm4"]
+code = "shader_type canvas_item;
+
+const float speed = 0.01;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+uniform sampler2D gradient_texture;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float gradient = texture(gradient_texture, UV).r;
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * gradient * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_5r2ru"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vobi"]
+gradient = SubResource("Gradient_5r2ru")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1uquh"]
+load_path = "res://.godot/imported/color_noise.jpg-dabf0390ffdc1c68a804272f8995ecc4.ctex"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nb2mg"]
+shader = SubResource("Shader_ocvm4")
+shader_parameter/smoke_color = Color(0.733333, 0.117647, 1, 1)
+shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_5vobi")
+
+[sub_resource type="Shader" id="Shader_t0feu"]
+code = "shader_type canvas_item;
+
+const float speed = 0.03;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_npj3o"]
+shader = SubResource("Shader_t0feu")
+shader_parameter/smoke_color = Color(0, 0.368627, 0.937255, 1)
+shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1o78"]
+shader = SubResource("Shader_t0feu")
+shader_parameter/smoke_color = Color(0, 0.0156863, 1, 1)
+shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+
+[sub_resource type="FontVariation" id="FontVariation_hyfeh"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -74.0
+offset_top = -28.0
+offset_right = 1220.0
+offset_bottom = 690.0
+color = Color(0, 0, 0.184314, 1)
+
+[node name="ColorNoise3" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_nb2mg")
+position = Vector2(647.32, 414.05)
+rotation = 1.5708
+scale = Vector2(7.45646, 9.50358)
+texture = ExtResource("3_ng6j1")
+
+[node name="ColorNoise2" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_npj3o")
+position = Vector2(760, 634)
+scale = Vector2(4.39844, 3.65039)
+texture = ExtResource("2_jxae6")
+
+[node name="ColorNoise4" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_x1o78")
+position = Vector2(210, 226)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("2_jxae6")
+
+[node name="ColorNoise5" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_x1o78")
+position = Vector2(1161, 54)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("2_jxae6")
+
+[node name="ColorNoise6" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_x1o78")
+position = Vector2(259, 603)
+scale = Vector2(3.33399, 2.87036)
+texture = ExtResource("2_jxae6")
+
+[node name="ColorNoise7" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_x1o78")
+position = Vector2(1103, 605)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("2_jxae6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 210.0
+offset_right = 418.0
+offset_bottom = 565.0
+script = ExtResource("3_usyws")
+
+[node name="MenuButton" type="MenuButton" parent="VBoxContainer"]
+texture_filter = 4
+custom_minimum_size = Vector2(50, 100)
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_hyfeh")
+theme_override_font_sizes/font_size = 64
+text = "ИГРАТЬ"
+
+[connection signal="pressed" from="VBoxContainer/MenuButton" to="VBoxContainer" method="_on_menu_button_pressed"]
