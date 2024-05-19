@@ -14,6 +14,7 @@ func buttonCenter():
 	for v in $"../Sockets".get_children():
 		if v.mouseover:
 			return v
+			
 func add_pinky(pos:Vector2):
 	var sk = pink.instantiate()
 	sk.position = pos
@@ -37,7 +38,7 @@ func lineFunction():
 	if v:
 		# print("yea " + (var_to_str(strings.size())))
 		var v_pos = v.get_global_rect().get_center()
-		print(is_drawing)
+		# print(is_drawing)
 		if currentString.get_point_count() == 0:
 			is_drawing = true
 			currentString.add_point(v_pos)
@@ -87,10 +88,10 @@ func check_line_intersection():
 					# var sk = socket.instantiate()
 					# sk.position = intersect_point
 					# add_child(sk)
-					# add_pinky(intersect_point)
+					add_pinky(intersect_point)
 					line_created.emit(intersect_point,strings[i])
 					# print(intersect_point)
-					# print("intersect!")
+					print("intersect!")
 				# else: print(intersect_point)
 
 #Функция отмены действия
@@ -99,7 +100,7 @@ func back():
 		currentString.clear_points();
 		is_drawing = false
 	else:
-		print("yep")
+		# print("yep")
 		if strings.size() > 0 :
 			var string = strings.pop_back()
 			string.queue_free()
