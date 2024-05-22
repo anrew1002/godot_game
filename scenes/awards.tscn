@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://bftnop3qtd57i"]
+
+[ext_resource type="Texture2D" uid="uid://cjmg3xu8l412q" path="res://assets/textures/background.png" id="1_gc37g"]
+[ext_resource type="Shader" path="res://shaders/radiocorner.gdshader" id="1_lpjjs"]
+[ext_resource type="Texture2D" uid="uid://rs7fb8ac6ba3" path="res://assets/textures/FirstAward.png" id="1_sw6kl"]
+[ext_resource type="Script" path="res://scripts/AddAwardPic.gd" id="3_x2j40"]
+[ext_resource type="Texture2D" uid="uid://chc3b0jl4c7as" path="res://assets/textures/return_normal.png" id="5_ntwah"]
+[ext_resource type="Script" path="res://scripts/Return.gd" id="6_0cwjv"]
+[ext_resource type="Texture2D" uid="uid://b063rm7aacetp" path="res://assets/textures/return_hover.png" id="6_jx0rb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4x2gy"]
+shader = ExtResource("1_lpjjs")
+shader_parameter/corner_radius = 2.0
+
+[sub_resource type="Gradient" id="Gradient_qmbtq"]
+colors = PackedColorArray(0.592157, 0.278431, 1, 0.666667, 0.364706, 0.137255, 0.505882, 0.666667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6rwh4"]
+gradient = SubResource("Gradient_qmbtq")
+
+[node name="Awards" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.4, 0.316406)
+texture = ExtResource("1_gc37g")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_4x2gy")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -298.5
+offset_right = 273.5
+offset_bottom = 298.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_6rwh4")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.5
+offset_top = -205.0
+offset_right = 234.5
+offset_bottom = 267.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
+clip_children = 1
+clip_contents = true
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/h_separation = 22
+theme_override_constants/v_separation = 22
+columns = 3
+script = ExtResource("3_x2j40")
+
+[node name="FirstAward" type="VBoxContainer" parent="ScrollContainer/GridContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Picture" type="TextureRect" parent="ScrollContainer/GridContainer/FirstAward"]
+custom_minimum_size = Vector2(130, 160)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_sw6kl")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="ScrollContainer/GridContainer/FirstAward"]
+layout_mode = 2
+text = "FIRST AWARD
+"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -269.0
+offset_right = 132.0
+offset_bottom = -224.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "МОИ КАРТОЧКИ"
+
+[node name="Return" type="TextureButton" parent="."]
+self_modulate = Color(1, 1, 1, 0.490196)
+texture_filter = 1
+layout_mode = 0
+offset_left = 1042.0
+offset_top = 26.0
+offset_right = 1122.0
+offset_bottom = 94.0
+texture_normal = ExtResource("5_ntwah")
+texture_hover = ExtResource("6_jx0rb")
+script = ExtResource("6_0cwjv")
+
+[connection signal="pressed" from="Return" to="Return" method="_on_pressed"]

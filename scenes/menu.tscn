@@ -219,6 +219,7 @@ max_polyphony = 2
 
 [node name="button_hover" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_3aj4u")
+volume_db = -15.913
 script = ExtResource("9_og7de")
 
 [connection signal="mouse_entered" from="VBoxContainer/MenuButton" to="button_hover" method="_on_menu_button_mouse_entered"]
