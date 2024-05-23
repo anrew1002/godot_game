@@ -1,14 +1,15 @@
 [gd_scene load_steps=18 format=3 uid="uid://c3qalls13d87f"]
 
+[ext_resource type="Texture2D" uid="uid://blo7ujt758xq2" path="res://assets/textures/color_noise.jpg" id="1_q1hej"]
 [ext_resource type="Texture2D" uid="uid://dn84h330f0iym" path="res://assets/textures/spotlight_3.png" id="2_jxae6"]
 [ext_resource type="Texture2D" uid="uid://5v3gve7ilx1o" path="res://icon.svg" id="3_ng6j1"]
-[ext_resource type="Script" path="res://scripts/VBoxContainer.gd" id="3_usyws"]
+[ext_resource type="Script" path="res://scripts/UInterface/VBoxContainer.gd" id="3_usyws"]
 [ext_resource type="Theme" uid="uid://dljo7hmmod3ua" path="res://themes/menu_theme.tres" id="4_kgboi"]
 [ext_resource type="Texture2D" uid="uid://c6x5bhg4v6i2k" path="res://assets/textures/mandala.png" id="5_k533k"]
-[ext_resource type="Script" path="res://scripts/Mandala.gd" id="6_ylxxr"]
+[ext_resource type="Script" path="res://scripts/UInterface/Mandala.gd" id="6_ylxxr"]
 [ext_resource type="AudioStream" uid="uid://b8ip62auo4vmx" path="res://assets/sounds/Ludum Dare 32 - 02.ogg" id="7_gm12q"]
 [ext_resource type="AudioStream" uid="uid://dhmxkkxmccs5l" path="res://assets/sounds/Bell - Ambient.wav" id="8_3aj4u"]
-[ext_resource type="Script" path="res://scripts/button_hover.gd" id="9_og7de"]
+[ext_resource type="Script" path="res://scripts/UInterface/button_hover.gd" id="9_og7de"]
 
 [sub_resource type="Shader" id="Shader_ocvm4"]
 code = "shader_type canvas_item;
@@ -52,13 +53,10 @@ void light() {
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5vobi"]
 gradient = SubResource("Gradient_5r2ru")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1uquh"]
-load_path = "res://.godot/imported/color_noise.jpg-dabf0390ffdc1c68a804272f8995ecc4.ctex"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nb2mg"]
 shader = SubResource("Shader_ocvm4")
 shader_parameter/smoke_color = Color(0.733333, 0.117647, 1, 1)
-shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+shader_parameter/noise_img = ExtResource("1_q1hej")
 shader_parameter/gradient_texture = SubResource("GradientTexture2D_5vobi")
 
 [sub_resource type="Shader" id="Shader_t0feu"]
@@ -99,12 +97,12 @@ void light() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_npj3o"]
 shader = SubResource("Shader_t0feu")
 shader_parameter/smoke_color = Color(0, 0.368627, 0.937255, 1)
-shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+shader_parameter/noise_img = ExtResource("1_q1hej")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1o78"]
 shader = SubResource("Shader_t0feu")
 shader_parameter/smoke_color = Color(0, 0.0156863, 1, 1)
-shader_parameter/noise_img = SubResource("CompressedTexture2D_1uquh")
+shader_parameter/noise_img = ExtResource("1_q1hej")
 
 [node name="Menu" type="Control"]
 layout_mode = 3

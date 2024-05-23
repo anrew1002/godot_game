@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bb117svyyitnf"]
+[gd_scene load_steps=6 format=3 uid="uid://bb117svyyitnf"]
 
-[ext_resource type="Script" path="res://scripts/Catcher/Socket.gd" id="1_v2dnm"]
+[ext_resource type="Script" path="res://scripts/Catcher/Socket.gd" id="1_f1apq"]
 [ext_resource type="Texture2D" uid="uid://dp6tr080nb0qu" path="res://assets/textures/EmptyInventorySlot.png" id="1_vx8fr"]
 [ext_resource type="Texture2D" uid="uid://csl3bjkaksvqy" path="res://assets/textures/PressedInventorySlot.png" id="3_73wdr"]
-[ext_resource type="Script" path="res://scripts/Catcher/SocketButton.gd" id="4_ghtcn"]
+[ext_resource type="Script" path="res://scripts/Catcher/SocketButton.gd" id="4_4jyc2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pqqko"]
+radius = 4.0
 
 [node name="Socket" type="CenterContainer"]
 anchors_preset = 15
@@ -11,7 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v2dnm")
+script = ExtResource("1_f1apq")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 texture_filter = 1
@@ -21,7 +24,15 @@ button_mask = 3
 texture_normal = ExtResource("1_vx8fr")
 texture_pressed = ExtResource("3_73wdr")
 stretch_mode = 0
-script = ExtResource("4_ghtcn")
+script = ExtResource("4_4jyc2")
+
+[node name="Label" type="Label" parent="TextureButton"]
+layout_mode = 2
+offset_left = 42.0
+offset_top = -32.0
+offset_right = 99.0
+offset_bottom = -9.0
+text = "kdfdfdf"
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
@@ -35,6 +46,12 @@ visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 disabled = true
+
+[node name="CharacterBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(16, 16)
+shape = SubResource("CircleShape2D_pqqko")
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
 [connection signal="left_click" from="TextureButton" to="." method="_on_texture_button_left_click"]

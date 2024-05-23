@@ -18,6 +18,7 @@ func buttonCenter():
 func add_pinky(pos:Vector2):
 	var sk = pink.instantiate()
 	sk.position = pos
+	sk.z_index = -1
 	add_child(sk)
 
 func _ready():
@@ -88,10 +89,10 @@ func check_line_intersection():
 					# var sk = socket.instantiate()
 					# sk.position = intersect_point
 					# add_child(sk)
-					add_pinky(intersect_point)
+					# add_pinky(intersect_point)
 					line_created.emit(intersect_point,strings[i])
 					# print(intersect_point)
-					print("intersect!")
+					# print("intersect!")
 				# else: print(intersect_point)
 
 #Функция отмены действия

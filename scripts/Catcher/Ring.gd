@@ -8,14 +8,11 @@ extends Line2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	draw_circle_arc()
+
+
+func draw_circle_arc():
 	var center = get_viewport_rect().size / 2.0	
-	draw_circle_arc(center)
-
-# func _draw():
-
-	# queue_redraw()
-
-func draw_circle_arc(center):
 	var angle_from = 0
 	var angle_to = 360
 	
@@ -29,4 +26,6 @@ func draw_circle_arc(center):
 		add_point(points_arc[index_point],-1)
 		var instance = socket.instantiate()
 		instance.global_position = points_arc[index_point]
+		instance.z_index = 10
 		sockets.add_child(instance)
+	return socket

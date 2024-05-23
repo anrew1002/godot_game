@@ -1,12 +1,9 @@
 extends Node2D
 
 var firstAward :bool = false
+var sockets_id :int = 0
+enum PLAYER_STUFF {THREAD, BEAD, NONE}
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var player_state = PLAYER_STUFF.NONE
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

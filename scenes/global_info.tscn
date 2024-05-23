@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hve6yn7qxvuj"]
 
-[ext_resource type="Script" path="res://scripts/global_info.gd" id="1_viprw"]
+[ext_resource type="Script" path="res://scripts/UInterface/global_info.gd" id="1_viprw"]
 
 [node name="GlobalInfo" type="Node2D"]
 script = ExtResource("1_viprw")
