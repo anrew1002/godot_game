@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b3svgf4pr2n3m"]
 
-[ext_resource type="Script" path="res://scripts/Catcher.gd" id="1_iv65j"]
-[ext_resource type="Script" path="res://scripts/Threads.gd" id="2_qifao"]
-[ext_resource type="Script" path="res://scripts/Ring.gd" id="3_fe4cl"]
+[ext_resource type="Script" path="res://scripts/Catcher/Catcher.gd" id="1_iv65j"]
+[ext_resource type="Script" path="res://scripts/Catcher/Threads.gd" id="2_qifao"]
+[ext_resource type="Script" path="res://scripts/Catcher/Ring.gd" id="3_fe4cl"]
 
 [node name="Catcher" type="Node2D"]
 script = ExtResource("1_iv65j")

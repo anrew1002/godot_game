@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bb117svyyitnf"]
 
-[ext_resource type="Script" path="res://scripts/Socket.gd" id="1_v2dnm"]
+[ext_resource type="Script" path="res://scripts/Catcher/Socket.gd" id="1_v2dnm"]
 [ext_resource type="Texture2D" uid="uid://dp6tr080nb0qu" path="res://assets/textures/EmptyInventorySlot.png" id="1_vx8fr"]
 [ext_resource type="Texture2D" uid="uid://csl3bjkaksvqy" path="res://assets/textures/PressedInventorySlot.png" id="3_73wdr"]
-[ext_resource type="Script" path="res://scripts/SocketButton.gd" id="4_ghtcn"]
+[ext_resource type="Script" path="res://scripts/Catcher/SocketButton.gd" id="4_ghtcn"]
 
 [node name="Socket" type="CenterContainer"]
 anchors_preset = 15

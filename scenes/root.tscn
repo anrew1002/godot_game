@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dl3nes2su7wlc"]
 
 [ext_resource type="PackedScene" uid="uid://b3svgf4pr2n3m" path="res://assets/objects/Catcher.tscn" id="1_322gl"]
-[ext_resource type="Script" path="res://scripts/UICounter.gd" id="2_5jok5"]
-[ext_resource type="Script" path="res://scripts/ButtonEnd.gd" id="3_barvl"]
+[ext_resource type="Script" path="res://scripts/UInterface/UICounter.gd" id="2_5jok5"]
+[ext_resource type="Script" path="res://scripts/UInterface/ButtonEnd.gd" id="3_barvl"]
 
 [node name="Root" type="Node2D"]
 
