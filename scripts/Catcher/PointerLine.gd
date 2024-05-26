@@ -7,6 +7,7 @@ var sockets: Array[Node]
 func _ready():
 	position = get_viewport_rect().size / 2.0	
 	print(position)
+	print(global_position)
 	add_point(Vector2(0,0))
 	add_point(Vector2(0,0) - Vector2(0,200))
 	
@@ -24,11 +25,18 @@ func _input(_event):
 		if active == true:
 			# sockets.assign($"../Sockets".get_children())
 			sockets = $"../Sockets".get_children()
-			for s in sockets:
-				if s.id == 1:
-					print(s.global_position) 
-					print(self.global_position)
+
+					# print(Vector2.from_angle(angle_point))
+					# print(Vector2.from_angle(rotation))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if active:
 		rotate(deg_to_rad(angle_step) * delta)
+		for s in sockets:
+			var angle_point = self.global_position.angle_to_point((s.global_position))
+			var first = rad_to_deg(angle_point)
+			if first < 0:
+				first+=360
+			var second = fmod((rad_to_deg(rotation)-90),360.0)
+			if abs(first - (second) )< 1:
+				print("yea")
