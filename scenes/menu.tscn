@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dhmxkkxmccs5l" path="res://assets/sounds/Bell - Ambient.wav" id="8_3aj4u"]
 [ext_resource type="Script" path="res://scripts/UInterface/button_hover.gd" id="9_og7de"]
 
-[sub_resource type="Shader" id="Shader_ocvm4"]
+[sub_resource type="Shader" id="Shader_vld2g"]
 code = "shader_type canvas_item;
 
 const float speed = 0.01;
@@ -50,16 +50,16 @@ void light() {
 
 [sub_resource type="Gradient" id="Gradient_5r2ru"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vobi"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n2l4t"]
 gradient = SubResource("Gradient_5r2ru")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nb2mg"]
-shader = SubResource("Shader_ocvm4")
+shader = SubResource("Shader_vld2g")
 shader_parameter/smoke_color = Color(0.733333, 0.117647, 1, 1)
 shader_parameter/noise_img = ExtResource("1_q1hej")
-shader_parameter/gradient_texture = SubResource("GradientTexture2D_5vobi")
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_n2l4t")
 
-[sub_resource type="Shader" id="Shader_t0feu"]
+[sub_resource type="Shader" id="Shader_44on4"]
 code = "shader_type canvas_item;
 
 const float speed = 0.03;
@@ -95,12 +95,12 @@ void light() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_npj3o"]
-shader = SubResource("Shader_t0feu")
+shader = SubResource("Shader_44on4")
 shader_parameter/smoke_color = Color(0, 0.368627, 0.937255, 1)
 shader_parameter/noise_img = ExtResource("1_q1hej")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1o78"]
-shader = SubResource("Shader_t0feu")
+shader = SubResource("Shader_44on4")
 shader_parameter/smoke_color = Color(0, 0.0156863, 1, 1)
 shader_parameter/noise_img = ExtResource("1_q1hej")
 

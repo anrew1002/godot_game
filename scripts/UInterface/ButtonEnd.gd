@@ -1,5 +1,5 @@
-extends Button
+extends TextureButton
 
 func _on_pressed():
-	get_tree().change_scene_to_file("res://scenes/awards.tscn");
+	get_tree().change_scene_to_file("res://scenes/card.tscn");
 	GlobalInfo.firstAward = true

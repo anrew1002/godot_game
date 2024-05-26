@@ -1,0 +1,261 @@
+[gd_scene load_steps=20 format=3 uid="uid://bbd8vs0tt7kyu"]
+
+[ext_resource type="Texture2D" uid="uid://blo7ujt758xq2" path="res://assets/textures/color_noise.jpg" id="1_whpif"]
+[ext_resource type="Texture2D" uid="uid://5v3gve7ilx1o" path="res://icon.svg" id="2_b7d5a"]
+[ext_resource type="Texture2D" uid="uid://dn84h330f0iym" path="res://assets/textures/spotlight_3.png" id="3_3t6y0"]
+[ext_resource type="Shader" path="res://shaders/radiocorner.gdshader" id="4_oapot"]
+[ext_resource type="AudioStream" uid="uid://b8ip62auo4vmx" path="res://assets/sounds/Ludum Dare 32 - 02.ogg" id="5_oyvor"]
+[ext_resource type="Texture2D" uid="uid://rs7fb8ac6ba3" path="res://assets/textures/FirstAward.png" id="6_dbi36"]
+[ext_resource type="Texture2D" uid="uid://bobqpbej0v6hm" path="res://assets/textures/ok_normal.png" id="7_w6o7i"]
+[ext_resource type="Texture2D" uid="uid://drkm0c7a7eshy" path="res://assets/textures/ok_hover.png" id="8_6feev"]
+[ext_resource type="Script" path="res://scripts/UInterface/ok.gd" id="9_oqhjo"]
+
+[sub_resource type="Shader" id="Shader_c0ooe"]
+code = "shader_type canvas_item;
+
+const float speed = 0.01;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+uniform sampler2D gradient_texture;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float gradient = texture(gradient_texture, UV).r;
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * gradient * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_f0eot"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kjvs2"]
+gradient = SubResource("Gradient_f0eot")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tg78"]
+shader = SubResource("Shader_c0ooe")
+shader_parameter/smoke_color = Color(0.733333, 0.117647, 1, 1)
+shader_parameter/noise_img = ExtResource("1_whpif")
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_kjvs2")
+
+[sub_resource type="Shader" id="Shader_lwscf"]
+code = "shader_type canvas_item;
+
+const float speed = 0.03;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86qxs"]
+shader = SubResource("Shader_lwscf")
+shader_parameter/smoke_color = Color(0, 0.368627, 0.937255, 1)
+shader_parameter/noise_img = ExtResource("1_whpif")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rrhl7"]
+shader = SubResource("Shader_lwscf")
+shader_parameter/smoke_color = Color(0, 0.0156863, 1, 1)
+shader_parameter/noise_img = ExtResource("1_whpif")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0hvgg"]
+shader = ExtResource("4_oapot")
+shader_parameter/corner_radius = 2.0
+
+[sub_resource type="Gradient" id="Gradient_qmbtq"]
+colors = PackedColorArray(0.592157, 0.278431, 1, 0.666667, 0.364706, 0.137255, 0.505882, 0.666667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_06npx"]
+gradient = SubResource("Gradient_qmbtq")
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -74.0
+offset_top = -28.0
+offset_right = 1220.0
+offset_bottom = 690.0
+color = Color(0, 0, 0.184314, 1)
+
+[node name="ColorNoise3" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_4tg78")
+position = Vector2(647.32, 414.05)
+rotation = 1.5708
+scale = Vector2(7.45646, 9.50358)
+texture = ExtResource("2_b7d5a")
+
+[node name="ColorNoise2" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_86qxs")
+position = Vector2(760, 634)
+scale = Vector2(4.39844, 3.65039)
+texture = ExtResource("3_3t6y0")
+
+[node name="ColorNoise4" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_rrhl7")
+position = Vector2(210, 226)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_3t6y0")
+
+[node name="ColorNoise5" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_rrhl7")
+position = Vector2(1161, 54)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_3t6y0")
+
+[node name="ColorNoise6" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_rrhl7")
+position = Vector2(259, 603)
+scale = Vector2(3.33399, 2.87036)
+texture = ExtResource("3_3t6y0")
+
+[node name="ColorNoise7" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_rrhl7")
+position = Vector2(1103, 605)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_3t6y0")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_0hvgg")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -273.5
+offset_top = -298.5
+offset_right = 273.5
+offset_bottom = 298.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_06npx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_oyvor")
+volume_db = 3.962
+autoplay = true
+max_polyphony = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -259.5
+offset_right = 120.0
+offset_bottom = -214.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "ТВОЯ НАГРАДА"
+
+[node name="FirstAward" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -185.0
+offset_right = 130.0
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Picture" type="TextureRect" parent="FirstAward"]
+custom_minimum_size = Vector2(260, 320)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("6_dbi36")
+
+[node name="Label" type="Label" parent="FirstAward"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "ПЕРВЫЙ ЛОВЕЦ"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="FirstAward/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -243.5
+offset_top = 42.5
+offset_right = 243.5
+offset_bottom = 111.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "ПЕРВОЕ ТВОРЕНИЕ ЗАПОМИНАЕТСЯ НАВСЕГДА... ТЫ НАСТОЯЩАЯ ВЕДЬМА"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ok" type="TextureButton" parent="."]
+texture_filter = 1
+offset_left = 1020.0
+offset_top = 523.0
+offset_right = 1102.0
+offset_bottom = 593.0
+texture_normal = ExtResource("7_w6o7i")
+texture_hover = ExtResource("8_6feev")
+script = ExtResource("9_oqhjo")
+
+[connection signal="pressed" from="ok" to="ok" method="_on_pressed"]

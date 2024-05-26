@@ -1,22 +1,117 @@
-[gd_scene load_steps=11 format=3 uid="uid://bftnop3qtd57i"]
+[gd_scene load_steps=20 format=3 uid="uid://bftnop3qtd57i"]
 
-[ext_resource type="Texture2D" uid="uid://cjmg3xu8l412q" path="res://assets/textures/background.png" id="1_gc37g"]
 [ext_resource type="Shader" path="res://shaders/radiocorner.gdshader" id="1_lpjjs"]
+[ext_resource type="Texture2D" uid="uid://blo7ujt758xq2" path="res://assets/textures/color_noise.jpg" id="1_me0tt"]
 [ext_resource type="Texture2D" uid="uid://rs7fb8ac6ba3" path="res://assets/textures/FirstAward.png" id="1_sw6kl"]
+[ext_resource type="Texture2D" uid="uid://5v3gve7ilx1o" path="res://icon.svg" id="2_ml2gx"]
+[ext_resource type="Texture2D" uid="uid://dn84h330f0iym" path="res://assets/textures/spotlight_3.png" id="3_f3ni0"]
 [ext_resource type="Script" path="res://scripts/UInterface/AddAwardPic.gd" id="3_x2j40"]
 [ext_resource type="Texture2D" uid="uid://chc3b0jl4c7as" path="res://assets/textures/return_normal.png" id="5_ntwah"]
 [ext_resource type="Script" path="res://scripts/UInterface/Return.gd" id="6_0cwjv"]
 [ext_resource type="Texture2D" uid="uid://b063rm7aacetp" path="res://assets/textures/return_hover.png" id="6_jx0rb"]
 
+[sub_resource type="Shader" id="Shader_ocvm4"]
+code = "shader_type canvas_item;
+
+const float speed = 0.01;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+uniform sampler2D gradient_texture;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float gradient = texture(gradient_texture, UV).r;
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * gradient * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_oslfw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5vobi"]
+gradient = SubResource("Gradient_oslfw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjoy7"]
+shader = SubResource("Shader_ocvm4")
+shader_parameter/smoke_color = Color(0.733333, 0.117647, 1, 1)
+shader_parameter/noise_img = ExtResource("1_me0tt")
+shader_parameter/gradient_texture = SubResource("GradientTexture2D_5vobi")
+
+[sub_resource type="Shader" id="Shader_t0feu"]
+code = "shader_type canvas_item;
+
+const float speed = 0.03;
+
+uniform vec4 smoke_color : source_color;
+uniform sampler2D noise_img : repeat_enable;
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv1 = vec2(UV.x + TIME * speed, UV.y);
+	vec2 uv2 = vec2(UV.x - TIME * speed, UV.y);
+	vec2 uv3 = vec2(UV.x, UV.y + TIME * speed);
+	
+	float noise_r = texture(noise_img, uv1).r;
+	float noise_g = texture(noise_img, uv2).g;
+	float noise_b = texture(noise_img, uv3).b;
+	
+	vec3 new_color = vec3(noise_r, noise_g ,noise_b);
+	
+	float new_alpha = noise_r * noise_g * noise_b;
+	
+	COLOR.rgb = smoke_color.rgb;
+	COLOR.a = clamp(new_alpha * 5.0 * texture(TEXTURE, UV).a, 0.0, 1.0);
+}
+
+void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usj7e"]
+shader = SubResource("Shader_t0feu")
+shader_parameter/smoke_color = Color(0, 0.368627, 0.937255, 1)
+shader_parameter/noise_img = ExtResource("1_me0tt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q66w6"]
+shader = SubResource("Shader_t0feu")
+shader_parameter/smoke_color = Color(0, 0.0156863, 1, 1)
+shader_parameter/noise_img = ExtResource("1_me0tt")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4x2gy"]
 shader = ExtResource("1_lpjjs")
 shader_parameter/corner_radius = 2.0
 
-[sub_resource type="Gradient" id="Gradient_qmbtq"]
+[sub_resource type="Gradient" id="Gradient_3l7sn"]
 colors = PackedColorArray(0.592157, 0.278431, 1, 0.666667, 0.364706, 0.137255, 0.505882, 0.666667)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_6rwh4"]
-gradient = SubResource("Gradient_qmbtq")
+gradient = SubResource("Gradient_3l7sn")
 
 [node name="Awards" type="Control"]
 layout_mode = 3
@@ -26,10 +121,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-scale = Vector2(0.4, 0.316406)
-texture = ExtResource("1_gc37g")
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -74.0
+offset_top = -28.0
+offset_right = 1220.0
+offset_bottom = 690.0
+color = Color(0, 0, 0.184314, 1)
+
+[node name="ColorNoise3" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_qjoy7")
+position = Vector2(647.32, 414.05)
+rotation = 1.5708
+scale = Vector2(7.45646, 9.50358)
+texture = ExtResource("2_ml2gx")
+
+[node name="ColorNoise2" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_usj7e")
+position = Vector2(760, 634)
+scale = Vector2(4.39844, 3.65039)
+texture = ExtResource("3_f3ni0")
+
+[node name="ColorNoise4" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_q66w6")
+position = Vector2(210, 226)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_f3ni0")
+
+[node name="ColorNoise5" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_q66w6")
+position = Vector2(1161, 54)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_f3ni0")
+
+[node name="ColorNoise6" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_q66w6")
+position = Vector2(259, 603)
+scale = Vector2(3.33399, 2.87036)
+texture = ExtResource("3_f3ni0")
+
+[node name="ColorNoise7" type="Sprite2D" parent="ColorRect"]
+material = SubResource("ShaderMaterial_q66w6")
+position = Vector2(1103, 605)
+scale = Vector2(3.07422, 2.4126)
+texture = ExtResource("3_f3ni0")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_4x2gy")
@@ -86,8 +220,7 @@ expand_mode = 1
 
 [node name="Label" type="Label" parent="ScrollContainer/GridContainer/FirstAward"]
 layout_mode = 2
-text = "FIRST AWARD
-"
+text = "ПЕРВЫЙ ЛОВЕЦ"
 horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="."]
@@ -107,7 +240,6 @@ theme_override_font_sizes/font_size = 32
 text = "МОИ КАРТОЧКИ"
 
 [node name="Return" type="TextureButton" parent="."]
-self_modulate = Color(1, 1, 1, 0.490196)
 texture_filter = 1
 layout_mode = 0
 offset_left = 1042.0
