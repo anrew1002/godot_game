@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb117svyyitnf"]
+[gd_scene load_steps=5 format=3 uid="uid://bb117svyyitnf"]
 
 [ext_resource type="Script" path="res://scripts/Catcher/Socket.gd" id="1_f1apq"]
-[ext_resource type="Texture2D" uid="uid://dp6tr080nb0qu" path="res://assets/textures/EmptyInventorySlot.png" id="1_vx8fr"]
-[ext_resource type="Texture2D" uid="uid://csl3bjkaksvqy" path="res://assets/textures/PressedInventorySlot.png" id="3_73wdr"]
+[ext_resource type="Texture2D" uid="uid://cl04w7yxil42o" path="res://assets/textures/pink_bead (1).svg" id="2_h2va2"]
 [ext_resource type="Script" path="res://scripts/Catcher/SocketButton.gd" id="4_4jyc2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqqko"]
@@ -12,17 +11,21 @@ radius = 4.0
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1120.0
+offset_bottom = -616.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(16, 16)
 script = ExtResource("1_f1apq")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+focus_mode = 0
 button_mask = 3
-texture_normal = ExtResource("1_vx8fr")
-texture_pressed = ExtResource("3_73wdr")
+texture_normal = ExtResource("2_h2va2")
+ignore_texture_size = true
 stretch_mode = 0
 script = ExtResource("4_4jyc2")
 
@@ -39,7 +42,7 @@ visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("1_vx8fr")
+texture = ExtResource("2_h2va2")
 
 [node name="Button" type="Button" parent="."]
 visible = false
@@ -48,9 +51,10 @@ layout_mode = 2
 disabled = true
 
 [node name="CharacterBody2D" type="StaticBody2D" parent="."]
+position = Vector2(16, 16)
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-position = Vector2(16, 16)
 shape = SubResource("CircleShape2D_pqqko")
 
 [connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]

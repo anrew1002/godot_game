@@ -1,6 +1,11 @@
 extends Node2D
 
 var strings: Array[Line2D]
+var currSockets: Array[Node]
+var sockets = []
+
+var layer = 0
+
 # @export var currentString: Line2D
 @onready var threadLine = preload("uid://cok2wkhtc1j05")
 @export  var is_drawing = false
@@ -36,9 +41,11 @@ func lineFunction():
 	if is_drawing:
 		# print("___")
 		currentString.set_point_position(currentString.get_point_count()-1, get_global_mouse_position())
-	if v:
+	if v && v.ring:
 		# print("yea " + (var_to_str(strings.size())))
-		var v_pos = v.get_global_rect().get_center()
+		# var v_pos = v.get_global_rect().get_center()
+		var v_pos = v.get_global_position() + Vector2(16,16)
+		currSockets.append(v)
 		# print(is_drawing)
 		if currentString.get_point_count() == 0:
 			is_drawing = true
@@ -48,9 +55,12 @@ func lineFunction():
 			
 			#Заверешение старой линнии
 			strings.append(currentString)
+			sockets.append(currSockets)
+			
 			currentString.set_point_position(currentString.get_point_count()-1, v_pos)
 			check_line_intersection()
 			# Создание новой линнии
+			currSockets = []
 			currentString = threadLine.instantiate()
 			currentString.clear_points()
 			currentString.global_position = Vector2(0,0)
@@ -65,6 +75,7 @@ func lineFunction():
 		# print(currentString.get_point_count())
 
 func check_line_intersection():
+	layer +=1 
 	# print("hey")
 	var last_index = len(strings)-1
 	# var color = Color(1.0, 0.0, 0.0)
@@ -77,20 +88,19 @@ func check_line_intersection():
 			for j in range(3):
 				var trIterStart = strings[i].get_point_position(j)
 				var trIterEnd = strings[i].get_point_position((j+1)%3)
-				# print(strings[i])
-				# print("Start")
-				# print(trPrimStart)
-				# print(trPrimEnd)
-				# print("End")
-				# print(trIterStart)
-				# print(trIterEnd)
+
 				var intersect_point = Geometry2D.segment_intersects_segment(trPrimStart,trPrimEnd,trIterStart,trIterEnd)
 				if intersect_point != null:
 					# var sk = socket.instantiate()
 					# sk.position = intersect_point
 					# add_child(sk)
 					# add_pinky(intersect_point)
-					line_created.emit(intersect_point,strings[i])
+					print(sockets[last_index][k].note)
+					print(sockets[last_index][(k+1)%3].note)
+					print(sockets[i][j].note)
+					print(sockets[i][(j+1)%3].note)
+					var chord = [sockets[last_index][k].note,sockets[last_index][(k+1)%3].note,sockets[i][j].note,sockets[i][(j+1)%3].note]
+					line_created.emit(intersect_point,[strings[last_index].get_point_position(k),strings[i].get_point_position(j)],chord, layer)
 					# print(intersect_point)
 					# print("intersect!")
 				# else: print(intersect_point)
@@ -99,6 +109,7 @@ func check_line_intersection():
 func back():
 	if is_drawing == true:
 		currentString.clear_points();
+		currSockets = []
 		is_drawing = false
 	else:
 		# print("yep")

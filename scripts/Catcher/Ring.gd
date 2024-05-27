@@ -4,7 +4,9 @@ extends Line2D
 @onready var sockets: Node2D = $"../Sockets"
 @export var radius: int = 160
 @export var nb_points: int = 6
+@export var gamma: Array[String] = ["D","E","F#","A","B"]
 @export	var color = Color(1.0, 0.0, 0.0)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,7 +26,9 @@ func draw_circle_arc():
 
 	for index_point in range(nb_points):
 		add_point(points_arc[index_point],-1)
-		var instance = socket.instantiate()
+		var instance = socket.instantiate() as socket_class
+		instance.note = gamma[index_point]
+		instance.ring = true
 		instance.global_position = points_arc[index_point]
 		instance.z_index = 10
 		sockets.add_child(instance)

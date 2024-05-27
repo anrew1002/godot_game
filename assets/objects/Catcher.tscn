@@ -1,16 +1,58 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3svgf4pr2n3m"]
+[gd_scene load_steps=19 format=3 uid="uid://b3svgf4pr2n3m"]
 
 [ext_resource type="Script" path="res://scripts/Catcher/Catcher.gd" id="1_iv65j"]
 [ext_resource type="Texture2D" uid="uid://bbhkilhtou7yt" path="res://assets/textures/ring.png" id="2_7l2ok"]
 [ext_resource type="Script" path="res://scripts/Catcher/Threads.gd" id="2_qifao"]
 [ext_resource type="Script" path="res://scripts/Catcher/Ring.gd" id="3_fe4cl"]
 [ext_resource type="Script" path="res://scripts/Catcher/PointerLine.gd" id="4_isp41"]
+[ext_resource type="Texture2D" uid="uid://dnq4lgwvmf4bo" path="res://assets/textures/scissors.png" id="5_3cfa2"]
+[ext_resource type="Script" path="res://addons/SimpleSampler/sampler_instrument.gd" id="6_j23wr"]
+[ext_resource type="Script" path="res://addons/SimpleSampler/sample_resource.gd" id="7_oxu3t"]
+[ext_resource type="AudioStream" uid="uid://ceib1m5j78ibv" path="res://assets/sounds/samples/D.wav" id="8_jbkt8"]
+[ext_resource type="AudioStream" uid="uid://du5fwv68f201t" path="res://assets/sounds/samples/E.wav" id="9_bmep5"]
+[ext_resource type="AudioStream" uid="uid://bq3slqnsx47cy" path="res://assets/sounds/samples/F#.wav" id="10_x3bwt"]
+[ext_resource type="AudioStream" uid="uid://brhxb1j2bsk26" path="res://assets/sounds/samples/A.wav" id="11_gjecd"]
+[ext_resource type="AudioStream" uid="uid://cfuh2na6majxd" path="res://assets/sounds/samples/B.wav" id="12_v340i"]
+
+[sub_resource type="Resource" id="Resource_6anba"]
+script = ExtResource("7_oxu3t")
+stream = ExtResource("8_jbkt8")
+tone = "D"
+octave = 4
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_3bhfs"]
+script = ExtResource("7_oxu3t")
+stream = ExtResource("9_bmep5")
+tone = "E"
+octave = 4
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_fytw5"]
+script = ExtResource("7_oxu3t")
+stream = ExtResource("10_x3bwt")
+tone = "F#"
+octave = 4
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_rqpdw"]
+script = ExtResource("7_oxu3t")
+stream = ExtResource("11_gjecd")
+tone = "A"
+octave = 4
+velocity = 5
+
+[sub_resource type="Resource" id="Resource_bifev"]
+script = ExtResource("7_oxu3t")
+stream = ExtResource("12_v340i")
+tone = "B"
+octave = 4
+velocity = 5
 
 [node name="Catcher" type="Node2D"]
 script = ExtResource("1_iv65j")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-anchors_preset = -1
 offset_left = 416.0
 offset_top = 160.0
 offset_right = 736.0
@@ -30,11 +72,15 @@ width = 4.0
 script = ExtResource("3_fe4cl")
 nb_points = 5
 
-[node name="Button" type="Button" parent="."]
-offset_left = 943.0
-offset_top = 94.0
-offset_right = 1061.0
-offset_bottom = 164.0
+[node name="Button" type="TextureButton" parent="."]
+offset_left = 991.0
+offset_top = 46.0
+offset_right = 1141.0
+offset_bottom = 196.0
+focus_mode = 0
+texture_normal = ExtResource("5_3cfa2")
+ignore_texture_size = true
+stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [node name="PointerLine" type="Line2D" parent="."]
@@ -48,7 +94,20 @@ round_precision = 32
 antialiased = true
 script = ExtResource("4_isp41")
 
+[node name="RayCast2D" type="RayCast2D" parent="PointerLine"]
+visibility_layer = 524289
+z_index = 20
+target_position = Vector2(0, -170)
+collision_mask = 8
+
 [node name="StaticBody2D" type="CharacterBody2D" parent="PointerLine"]
+
+[node name="SamplerInstrument" type="AudioStreamPlayer" parent="."]
+bus = &"Sampler"
+script = ExtResource("6_j23wr")
+max_notes = 6
+samples = Array[ExtResource("7_oxu3t")]([SubResource("Resource_6anba"), SubResource("Resource_3bhfs"), SubResource("Resource_fytw5"), SubResource("Resource_rqpdw"), SubResource("Resource_bifev")])
 
 [connection signal="line_created" from="Threads" to="." method="_on_threads_line_created"]
 [connection signal="pressed" from="Button" to="." method="_on_back_pressed"]
+[connection signal="line_collide" from="PointerLine" to="." method="_on_pointer_line_collide"]

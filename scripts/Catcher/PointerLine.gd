@@ -1,13 +1,18 @@
 extends Line2D
 
+@onready var ray: RayCast2D = $RayCast2D
+var last_collide = false
 var angle_step = 20.0
 var active = false
 var sockets: Array[Node]
+var last_collision = false
+
+signal line_collide(socket:Node)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	position = get_viewport_rect().size / 2.0	
-	print(position)
-	print(global_position)
+	# print(position)
+	# print(global_position)
 	add_point(Vector2(0,0))
 	add_point(Vector2(0,0) - Vector2(0,200))
 	
@@ -32,11 +37,21 @@ func _input(_event):
 func _process(delta):
 	if active:
 		rotate(deg_to_rad(angle_step) * delta)
-		for s in sockets:
-			var angle_point = self.global_position.angle_to_point((s.global_position))
-			var first = rad_to_deg(angle_point)
-			if first < 0:
-				first+=360
-			var second = fmod((rad_to_deg(rotation)-90),360.0)
-			if abs(first - (second) )< 1:
-				print("yea")
+		if ray.is_colliding():
+			if !last_collide:
+				# print("collide")
+				var collider: Node = ray.get_collider()
+				# var socket:  = collider.get_parent()
+				line_collide.emit(collider)
+				last_collide = true
+		else:
+			last_collide = false
+			# for s in sockets:
+			# 	var angle_point = self.global_position.angle_to_point((s.global_position))
+			# 	var first = rad_to_deg(angle_point)
+			# 	if first < 0:
+			# 		first+=360
+			# 	var second = fmod((rad_to_deg(rotation)-90),360.0)
+			# 	if abs(first - (second) )< 1:
+			# 		print("yea")
+# func _phys
