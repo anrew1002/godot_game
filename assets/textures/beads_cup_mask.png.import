@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://c1bq0jar3ukya"
+path="res://.godot/imported/beads_cup_mask.png-3b8c2def34247f09fdef05ea19d9c019.res"
+
+[deps]
+
+source_file="res://assets/textures/beads_cup_mask.png"
+dest_files=["res://.godot/imported/beads_cup_mask.png-3b8c2def34247f09fdef05ea19d9c019.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

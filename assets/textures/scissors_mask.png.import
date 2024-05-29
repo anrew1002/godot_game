@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://clofxlpyjoxhw"
+path="res://.godot/imported/scissors_mask.png-619e6bc95ba974fff266009831dbac70.res"
+
+[deps]
+
+source_file="res://assets/textures/scissors_mask.png"
+dest_files=["res://.godot/imported/scissors_mask.png-619e6bc95ba974fff266009831dbac70.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

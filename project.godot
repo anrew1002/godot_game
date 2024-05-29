@@ -23,6 +23,8 @@ NoteValue="*res://addons/SimpleSampler/note_value.gd"
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="res://assets/textures/sewing-needle.svg"
+mouse_cursor/custom_image_hotspot=Vector2(20, 0)
 
 [dotnet]
 
