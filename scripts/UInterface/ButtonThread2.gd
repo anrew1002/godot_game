@@ -13,3 +13,4 @@ func _process(delta):
 
 func _on_pressed():
 	GlobalInfo.player_state = GlobalInfo.PLAYER_STUFF.THREAD
+	GlobalInfo.firstSpider = true

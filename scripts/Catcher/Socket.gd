@@ -43,12 +43,15 @@ func update_state():
 		textButton.texture_normal = noneTexture
 	if currState == STATE.X:
 		textButton.texture_normal = beadTexture
+		GlobalInfo.firstBead = true
 	if currState == STATE.LONG:
 		textButton.texture_normal = longTexture
 		rotation = r1
+		GlobalInfo.firstBeadInside = true
 	if currState == STATE.LONG2:
 		textButton.texture_normal = longTexture
 		rotation = r2
+		GlobalInfo.firstBeadInside = true
 
 func _on_texture_button_left_click():
 	# print(id,get_global_rect().get_area())

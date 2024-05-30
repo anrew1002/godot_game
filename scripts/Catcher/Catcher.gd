@@ -23,6 +23,7 @@ func add_pinky(pos:Vector2) -> Node:
 	sk.modulate = Color(0,0,1,0.2)
 	sk.rotation = 90
 	add_child(sk)
+	
 	return sk
 
 # отмена слоя 
@@ -34,6 +35,7 @@ func _on_back_pressed():
 			for sck in sck_arr:
 				sck.queue_free()
 	threads.back()
+	GlobalInfo.firstScissors = true
 	
 
 
@@ -62,8 +64,7 @@ func _on_threads_line_created(s_pos, thr, chord, layer):
 	angle_point = instance.global_position.angle_to_point((thr[0]))
 	instance.r2 = angle_point + deg_to_rad(45)
 	sockets.add_child(instance)
-
-
+		
 	created_sockets[created_sockets.size()-1].append(instance)
 
 	var child_new = sockets.get_child_count()

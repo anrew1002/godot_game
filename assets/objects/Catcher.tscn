@@ -75,11 +75,11 @@ script = ExtResource("3_fe4cl")
 nb_points = 5
 
 [node name="Button" type="TextureButton" parent="."]
-offset_left = 939.0
-offset_top = 178.0
-offset_right = 1139.0
-offset_bottom = 378.0
-rotation = -1.33942
+offset_left = 916.0
+offset_top = 239.0
+offset_right = 1116.0
+offset_bottom = 439.0
+rotation = -2.1278
 focus_mode = 0
 texture_normal = ExtResource("5_3cfa2")
 texture_hover = ExtResource("6_6itrt")

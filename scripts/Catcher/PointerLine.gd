@@ -30,6 +30,7 @@ func _input(_event):
 		if active == true:
 			# sockets.assign($"../Sockets".get_children())
 			sockets = $"../Sockets".get_children()
+			GlobalInfo.firstSpace = true
 
 					# print(Vector2.from_angle(angle_point))
 					# print(Vector2.from_angle(rotation))

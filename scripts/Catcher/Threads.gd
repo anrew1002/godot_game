@@ -101,6 +101,8 @@ func check_line_intersection():
 					print(sockets[i][(j+1)%3].note)
 					var chord = [sockets[last_index][k].note,sockets[last_index][(k+1)%3].note,sockets[i][j].note,sockets[i][(j+1)%3].note]
 					line_created.emit(intersect_point,[strings[last_index].get_point_position(k),strings[i].get_point_position(j)],chord, layer)
+					
+					GlobalInfo.firstThread = true
 					# print(intersect_point)
 					# print("intersect!")
 				# else: print(intersect_point)
