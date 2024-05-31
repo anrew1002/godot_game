@@ -23,8 +23,9 @@ func _ready():
 		segment.a = points[i]
 		segment.b = points[i + 1]
 		new_shape.shape = segment
-func _input(_event):
-	if Input.is_key_pressed(KEY_SPACE):
+func _input(event):
+	var just_pressed = event.is_pressed() and not event.is_echo()
+	if Input.is_key_pressed(KEY_SPACE) and just_pressed:
 		active = !active
 		# print(rad_to_deg(rotation))
 		if active == true:
