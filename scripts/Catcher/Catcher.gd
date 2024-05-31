@@ -55,7 +55,8 @@ func _on_threads_line_created(s_pos, thr, chord, layer):
 			# print("end!")
 			return
 
-	var instance = socket.instantiate()
+	var instance = socket.instantiate() as socket_class
+	instance.note = chord[0]
 	instance.chord = chord as Array[String]
 	instance.position =  s_pos 
 	instance.z_index = 10

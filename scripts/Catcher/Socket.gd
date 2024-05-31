@@ -4,7 +4,7 @@ class_name socket_class
 static var max_id = 0
 var id: int 
 var mouseover = false
-var note: String
+var note: String = "D"
 var chord: Array
 var active: bool = false
 enum STATE {NONE, X, LONG, LONG2}

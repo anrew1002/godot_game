@@ -39,20 +39,18 @@ func _process(delta):
 	if active:
 		rotate(deg_to_rad(angle_step) * delta)
 		if ray.is_colliding():
-			if !last_collide:
+			# if !last_collide:
 				# print("collide")
 				var collider: Node = ray.get_collider()
 				# var socket:  = collider.get_parent()
 				line_collide.emit(collider)
-				last_collide = true
-		else:
-			last_collide = false
-			# for s in sockets:
-			# 	var angle_point = self.global_position.angle_to_point((s.global_position))
-			# 	var first = rad_to_deg(angle_point)
-			# 	if first < 0:
-			# 		first+=360
-			# 	var second = fmod((rad_to_deg(rotation)-90),360.0)
-			# 	if abs(first - (second) )< 1:
-			# 		print("yea")
-# func _phys
+				ray.add_exception(collider)
+				
+				# last_collide = true
+		# else:
+			# last_collide = false
+		# print(fmod(rotation_degrees, 360.0))
+		var mod_rotation = fmod(rotation_degrees, 360.0)
+		if (mod_rotation > 358):
+			ray.clear_exceptions()
+			print("clear!")

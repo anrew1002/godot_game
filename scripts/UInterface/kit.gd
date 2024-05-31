@@ -4,6 +4,8 @@ var text_arrays = []
 var current_section = 0
 var current_line = 0
 
+
+
 func start_tutorial():
 	# Проверка на наличие текста
 	if text_arrays.size() > 0:
@@ -57,6 +59,9 @@ func process_text(text):
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
+	MessageBus.connect("thread_selected",on_thread_selected_script)
+
 	var file_path = "res://assets/dialogs/kit_tutorial.txt" # Укажите путь к вашему текстовому файлу
 	var text = load_text_from_file(file_path)
 	text_arrays = process_text(text)
@@ -83,6 +88,9 @@ func _input(event):
 				elif current_section < text_arrays.size():
 					current_line += 1
 					update_label_text()
+
+func on_thread_selected_script():
+	update_label_text()
 				
 
 func is_click_on_sprite(mouse_pos):

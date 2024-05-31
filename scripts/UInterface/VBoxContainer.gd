@@ -20,7 +20,17 @@ func _on_menu_button_2_pressed():
 
 
 func _on_menu_button_3_pressed():
-	pass # Replace with function body.
+	GlobalInfo.firstAward = false
+	GlobalInfo.firstStep = true
+	GlobalInfo.firstSpider = false
+	GlobalInfo.firstThread = false
+	GlobalInfo.firstScissors = false
+	GlobalInfo.firstCupOfBeads = false
+	GlobalInfo.firstBead = false
+	GlobalInfo.firstBeadInside = false
+	GlobalInfo.firstSpace = false
+	GlobalInfo.studied = false
+	get_tree().change_scene_to_file("res://scenes/root.tscn");	
 
 
 func _on_menu_button_4_pressed():

@@ -41,7 +41,7 @@ func lineFunction():
 	if is_drawing:
 		# тяни нитку на местоположение курсора пока плетёшь
 		currentString.set_point_position(currentString.get_point_count()-1, get_global_mouse_position())
-	if v && v.ring:
+	if v :
 		var v_pos = v.get_global_position() + Vector2(16,16)
 		v.mouseover = false
 		if currSockets.size() > 0 && currSockets[currSockets.size()-1] == v:

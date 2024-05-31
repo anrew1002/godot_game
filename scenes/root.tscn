@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dl3nes2su7wlc"]
+[gd_scene load_steps=26 format=3 uid="uid://dl3nes2su7wlc"]
 
 [ext_resource type="PackedScene" uid="uid://b3svgf4pr2n3m" path="res://assets/objects/Catcher.tscn" id="1_322gl"]
 [ext_resource type="Texture2D" uid="uid://nh6vq4124mo1" path="res://assets/textures/table.png" id="1_l4hkk"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bn73jgb0lp6kg" path="res://assets/objects/bead_stock.tscn" id="6_503ar"]
 [ext_resource type="Texture2D" uid="uid://cefj8xqlutxls" path="res://assets/textures/spider.png" id="6_bhnrn"]
 [ext_resource type="Texture2D" uid="uid://bthakk7vhaq5g" path="res://assets/textures/spider_hover.png" id="7_2vu1l"]
+[ext_resource type="BitMap" uid="uid://cyd76n370komh" path="res://assets/textures/spider_mask.png" id="8_7tr4l"]
 [ext_resource type="Script" path="res://scripts/UInterface/ButtonThread2.gd" id="8_skias"]
 [ext_resource type="Texture2D" uid="uid://bd717myo8rfdb" path="res://assets/textures/beads_cup.png" id="10_bt2i3"]
 [ext_resource type="Texture2D" uid="uid://bj3mjbsadggrx" path="res://assets/textures/beads_cup_hover.png" id="11_xjb5t"]
@@ -105,6 +106,7 @@ focus_mode = 0
 texture_normal = ExtResource("6_bhnrn")
 texture_pressed = ExtResource("7_2vu1l")
 texture_hover = ExtResource("7_2vu1l")
+texture_click_mask = ExtResource("8_7tr4l")
 script = ExtResource("8_skias")
 
 [node name="ButtonNone" type="TextureButton" parent="."]
@@ -123,7 +125,8 @@ script = ExtResource("5_x5slg")
 [node name="BeadStock" parent="." instance=ExtResource("6_503ar")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(926, 558)
+position = Vector2(950, 545)
+scale = Vector2(0.903571, 0.903571)
 sprite_frames = SubResource("SpriteFrames_wv6fe")
 autoplay = "default"
 frame_progress = 0.090869
