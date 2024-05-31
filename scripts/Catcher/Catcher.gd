@@ -52,7 +52,7 @@ func _on_threads_line_created(s_pos, thr, chord, layer):
 		var sck_pos = sck.global_position
 
 		if sck_pos.distance_to(s_pos  - Vector2(16,16)) < 20:
-			print("end!")
+			# print("end!")
 			return
 
 	var instance = socket.instantiate()
@@ -92,14 +92,14 @@ func _on_pointer_line_collide(collided_socket:Node):
 		sampler.play_note("D", 4)
 	if collided_socket.chord.size() != 0:
 		if collided_socket.currState == socket_class.STATE.LONG:
-			print(collided_socket.chord[0])
+			# print(collided_socket.chord[0])
 			sampler.play_note(collided_socket.chord[0], 4)
-			print(collided_socket.chord[1])
+			# print(collided_socket.chord[1])
 			sampler.play_note(collided_socket.chord[1], 4)
 		if collided_socket.currState == socket_class.STATE.LONG2:
-			print(collided_socket.chord[0])
+			# print(collided_socket.chord[0])
 			sampler.play_note(collided_socket.chord[2], 4)
-			print(collided_socket.chord[1])
+			# print(collided_socket.chord[1])
 			sampler.play_note(collided_socket.chord[3], 4)
 			# sampler.play_note(collided_socket.chord[2], 4)
 			# sampler.play_note(collided_socket.chord[3], 4)

@@ -110,7 +110,7 @@ collision_mask = 8
 [node name="SamplerInstrument" type="AudioStreamPlayer" parent="."]
 bus = &"Sampler"
 script = ExtResource("6_j23wr")
-max_notes = 6
+max_notes = 12
 samples = Array[ExtResource("7_oxu3t")]([SubResource("Resource_6anba"), SubResource("Resource_3bhfs"), SubResource("Resource_fytw5"), SubResource("Resource_rqpdw"), SubResource("Resource_bifev")])
 
 [connection signal="line_created" from="Threads" to="." method="_on_threads_line_created"]

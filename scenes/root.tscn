@@ -123,7 +123,7 @@ script = ExtResource("5_x5slg")
 [node name="BeadStock" parent="." instance=ExtResource("6_503ar")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(867, 430)
+position = Vector2(926, 558)
 sprite_frames = SubResource("SpriteFrames_wv6fe")
 autoplay = "default"
 frame_progress = 0.090869
@@ -131,15 +131,15 @@ script = ExtResource("22_hvs6r")
 
 [node name="Dialog" type="Sprite2D" parent="AnimatedSprite2D"]
 modulate = Color(1, 1, 1, 0.521569)
-position = Vector2(94.5, -119)
+position = Vector2(87.5001, -196)
 scale = Vector2(1.18687, 1)
 texture = ExtResource("23_ypnmc")
 
 [node name="Label" type="Label" parent="AnimatedSprite2D"]
-offset_left = -4.0
-offset_top = -200.0
-offset_right = 193.0
-offset_bottom = -82.0
+offset_left = -10.9999
+offset_top = -277.0
+offset_right = 186.0
+offset_bottom = -159.0
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 vertical_alignment = 1
