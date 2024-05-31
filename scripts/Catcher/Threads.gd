@@ -39,20 +39,22 @@ func _process(_delta):
 func lineFunction():
 	var v = buttonCenter()
 	if is_drawing:
-		# print("___")
+		# тяни нитку на местоположение курсора пока плетёшь
 		currentString.set_point_position(currentString.get_point_count()-1, get_global_mouse_position())
 	if v && v.ring:
-		# print("yea " + (var_to_str(strings.size())))
-		# var v_pos = v.get_global_rect().get_center()
 		var v_pos = v.get_global_position() + Vector2(16,16)
+		v.mouseover = false
+		if currSockets.size() > 0 && currSockets[currSockets.size()-1] == v:
+			return
 		currSockets.append(v)
 		# print(is_drawing)
 		if currentString.get_point_count() == 0:
+			print("start")
 			is_drawing = true
 			currentString.add_point(v_pos)
 			currentString.add_point(v_pos)
 		elif currentString.get_point_count() == 3:
-			
+			print("complete")
 			#Заверешение старой линнии
 			strings.append(currentString)
 			sockets.append(currSockets)
@@ -69,9 +71,10 @@ func lineFunction():
 			
 		else:
 			# print("___")
+			print(currSockets.size())
 			currentString.set_point_position(currentString.get_point_count()-1, v_pos)
 			currentString.add_point(v_pos)
-		v.mouseover = false
+		
 		# print(currentString.get_point_count())
 
 func check_line_intersection():
@@ -95,10 +98,10 @@ func check_line_intersection():
 					# sk.position = intersect_point
 					# add_child(sk)
 					# add_pinky(intersect_point)
-					print(sockets[last_index][k].note)
-					print(sockets[last_index][(k+1)%3].note)
-					print(sockets[i][j].note)
-					print(sockets[i][(j+1)%3].note)
+					# print(sockets[last_index][k].note)
+					# print(sockets[last_index][(k+1)%3].note)
+					# print(sockets[i][j].note)
+					# print(sockets[i][(j+1)%3].note)
 					var chord = [sockets[last_index][k].note,sockets[last_index][(k+1)%3].note,sockets[i][j].note,sockets[i][(j+1)%3].note]
 					line_created.emit(intersect_point,[strings[last_index].get_point_position(k),strings[i].get_point_position(j)],chord, layer)
 					
